@@ -1,6 +1,8 @@
 import React from "react";
 
 import ReactDom from "react-dom/client";
+
+import("./index.css");
 const pizzaData = [
   {
     name: "Focaccia",
@@ -48,7 +50,7 @@ const pizzaData = [
 
 function App() {
   return (
-    <div>
+    <div className="container">
       <Header />
       <Menu />
       <Footer />
@@ -57,16 +59,37 @@ function App() {
 }
 
 function Header() {
-  return <h1>Fast React Pizza Company</h1>;
+  const style = {};
+  return (
+    <header className="header">
+      <h1 style={style}>Fast React Pizza Company</h1>
+    </header>
+  );
 }
 
 function Menu() {
   return (
-    <div>
-      <h2>Menu</h2>
-      <Pizza />
-      <Pizza />
-      <Pizza />
+    <main className="menu">
+      <h2>Our Menu</h2>
+      <ul className="pizzas">
+        {pizzaData.map((pizza) => (
+          <Pizza pizzaObject={pizza} key={pizza.name} />
+        ))}
+      </ul>
+    </main>
+  );
+}
+
+function Pizza({ pizzaObject }) {
+  const { name, photoName, price, ingredients } = pizzaObject;
+  return (
+    <div className="pizza">
+      <img src={photoName} alt={name} />
+      <div>
+        <h3>{name}</h3>
+        <p>{ingredients}</p>
+        <span>${price + 3}</span>
+      </div>
     </div>
   );
 }
@@ -80,19 +103,9 @@ function Footer() {
   const message = isOpen ? "we are currently open" : "we are currently closed";
   //   alert(message);
   return (
-    <footer>
+    <footer className="footer">
       {new Date().toLocaleTimeString()}: {message}
     </footer>
-  );
-}
-
-function Pizza() {
-  return (
-    <div>
-      <img src="pizzas/prosciutto.jpg" alt="Pizza Prosciutto" />
-      <h2>Pizza Prosciutto</h2>
-      <p>Tomato, mozarella, ham, aragula, and burrata cheese</p>
-    </div>
   );
 }
 
