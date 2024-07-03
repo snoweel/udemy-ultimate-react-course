@@ -103,8 +103,6 @@ function Stats({ items }) {
 function App() {
   const [items, setItems] = useState([]);
 
-  const numItems = items.length;
-
   function handleAddItems(newItem) {
     setItems((items) => [...items, newItem]);
   }
